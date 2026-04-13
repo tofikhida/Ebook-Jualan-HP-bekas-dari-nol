@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eBook Bisnis HP Bekas – Dari Modal 2 Juta Jadi Mesin Cuan</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #F0A500;
+    --gold-light: #FFD166;
+    --dark: #0D0D0D;
+    --dark2: #161616;
+    --dark3: #1F1F1F;
+    --border: rgba(240,165,0,0.2);
+    --text: #E8E8E8;
+    --muted: #888;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(240,165,0,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-left {
+    padding: 80px 60px 80px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 80px 80px 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(240,165,0,0.12);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    margin-bottom: 32px;
+    width: fit-content;
+    animation: fadeUp 0.6s ease forwards;
+    opacity: 0;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 6vw, 82px);
+    line-height: 1.0;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s ease 0.1s forwards;
+    opacity: 0;
+  }
+
+  .hero-title span {
+    color: var(--gold);
+    font-style: italic;
+    font-family: 'DM Serif Display', serif;
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    color: #B0B0B0;
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 40px;
+    animation: fadeUp 0.6s ease 0.2s forwards;
+    opacity: 0;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s ease 0.3s forwards;
+    opacity: 0;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: #000;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 16px 36px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+    letter-spacing: 0.5px;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(240,165,0,0.3);
+  }
+
+  .price-tag {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .price-tag strong {
+    font-size: 24px;
+    color: var(--gold);
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+  }
+
+  /* BOOK MOCKUP */
+  .book-wrap {
+    position: relative;
+    transform-style: preserve-3d;
+    animation: floatBook 4s ease-in-out infinite, fadeUp 0.8s ease 0.2s forwards;
+    opacity: 0;
+  }
+
+  @keyframes floatBook {
+    0%, 100% { transform: rotateY(-8deg) rotateX(4deg) translateY(0px); }
+    50% { transform: rotateY(-8deg) rotateX(4deg) translateY(-14px); }
+  }
+
+  .book-cover {
+    width: 280px;
+    height: 380px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    border: 1px solid rgba(240,165,0,0.4);
+    box-shadow:
+      -8px 0 0 rgba(0,0,0,0.5),
+      -16px 4px 20px rgba(0,0,0,0.6),
+      0 20px 60px rgba(0,0,0,0.5),
+      0 0 0 1px rgba(240,165,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .book-cover::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .book-cover::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0;
+    width: 12px;
+    background: linear-gradient(90deg, rgba(0,0,0,0.6), transparent);
+  }
+
+  .book-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+
+  .book-label {
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .book-title-inner {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    line-height: 1.1;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+
+  .book-title-inner span { color: var(--gold); }
+
+  .book-author {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    width: 100%;
+  }
+
+  .book-pages {
+    position: absolute;
+    right: -8px;
+    top: 4px;
+    bottom: 4px;
+    width: 10px;
+    background: repeating-linear-gradient(
+      to bottom,
+      #2a2a2a 0px, #2a2a2a 2px,
+      #1a1a1a 2px, #1a1a1a 4px
+    );
+    border-radius: 0 2px 2px 0;
+  }
+
+  .book-glow {
+    position: absolute;
+    inset: -30px;
+    background: radial-gradient(circle at center, rgba(240,165,0,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--dark2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 80px;
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* PAIN SECTION */
+  .section {
+    padding: 100px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 1.05;
+    margin-bottom: 60px;
+  }
+
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .pain-item {
+    background: var(--dark2);
+    padding: 40px 32px;
+    transition: background 0.2s;
+  }
+
+  .pain-item:hover { background: var(--dark3); }
+
+  .pain-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .pain-title {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+
+  .pain-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* CONTENTS */
+  .contents-section {
+    background: var(--dark2);
+    padding: 100px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contents-section::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  }
+
+  .contents-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    background: rgba(240,165,0,0.06);
+  }
+
+  .content-item {
+    background: var(--dark);
+    padding: 28px 32px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    transition: background 0.2s;
+  }
+
+  .content-item:hover { background: #111; }
+
+  .content-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: rgba(240,165,0,0.25);
+    line-height: 1;
+    min-width: 40px;
+  }
+
+  .content-info h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  .content-info p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* TESTIMONIALS */
+  .testi-section {
+    padding: 100px 80px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .testi-section::after {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    left: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(240,165,0,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .testi-card {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    padding: 32px;
+    position: relative;
+    transition: all 0.2s;
+  }
+
+  .testi-card:hover {
+    border-color: rgba(240,165,0,0.5);
+    transform: translateY(-4px);
+  }
+
+  .testi-stars {
+    color: var(--gold);
+    font-size: 14px;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+  }
+
+  .testi-text {
+    font-size: 14px;
+    color: #C0C0C0;
+    line-height: 1.7;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .testi-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .testi-loc {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .testi-quote {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 80px;
+    color: rgba(240,165,0,0.06);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  /* CTA FINAL */
+  .cta-section {
+    background: var(--dark2);
+    border-top: 1px solid var(--border);
+    padding: 100px 80px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 400px;
+    background: radial-gradient(ellipse at center, rgba(240,165,0,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    line-height: 1.0;
+    margin-bottom: 20px;
+  }
+
+  .cta-title span { color: var(--gold); }
+
+  .cta-sub {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 520px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+  }
+
+  .cta-box {
+    display: inline-block;
+    background: rgba(240,165,0,0.06);
+    border: 1px solid var(--border);
+    padding: 40px 56px;
+    margin-bottom: 40px;
+  }
+
+  .price-old {
+    font-size: 16px;
+    color: var(--muted);
+    text-decoration: line-through;
+    margin-bottom: 4px;
+  }
+
+  .price-main {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .price-note {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+
+  .guarantee {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 20px;
+  }
+
+  .guarantee span { font-size: 18px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 32px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+  }
+
+  footer strong { color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: all 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .hero-right {
+      padding: 40px 40px 60px;
+    }
+
+    .hero-left {
+      padding: 80px 40px 40px;
+    }
+
+    .stats-bar {
+      padding: 28px 40px;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .section, .contents-section, .testi-section, .cta-section {
+      padding: 60px 32px;
+    }
+
+    .pain-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contents-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .testi-grid {
+      grid-template-columns: 1fr;
+    }
+
+    footer {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+      padding: 32px;
+    }
+
+    .book-cover {
+      width: 220px;
+      height: 300px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="badge">eBook Eksklusif 2025</div>
+    <h1 class="hero-title">
+      Bisnis<br>
+      <span>HP Bekas</span><br>
+      Dari Nol.
+    </h1>
+    <p class="hero-sub">
+      Panduan lengkap membangun bisnis jual-beli HP bekas dari modal 2 juta — sampai omzet 10 juta per bulan. Sistem nyata, bukan teori kosong.
+    </p>
+    <div class="hero-cta">
+      <a href="#beli" class="btn-primary">Dapatkan eBook Sekarang →</a>
+      <div class="price-tag">
+        Hanya <strong>Rp 97.000</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="book-wrap">
+      <div class="book-glow"></div>
+      <div class="book-cover">
+        <div class="book-label">eBook</div>
+        <div class="book-icon">📱</div>
+        <div class="book-title-inner">
+          BISNIS<br><span>HP BEKAS</span><br>DARI NOL
+        </div>
+        <div class="book-author">oleh Tofik HP Bekas</div>
+        <div class="book-pages"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">200+</div>
+    <div class="stat-label">Pembeli eBook</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">7</div>
+    <div class="stat-label">Bab Lengkap</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">80+</div>
+    <div class="stat-label">Halaman Praktis</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">Rp 10 jt</div>
+    <div class="stat-label">Target Omzet/Bulan</div>
+  </div>
+</div>
+
+<!-- PAIN POINTS -->
+<section class="section">
+  <div class="section-label">Masalah yang kamu alami</div>
+  <h2 class="section-title reveal">Kenapa Bisnis HP Bekas<br>Banyak yang Gagal?</h2>
+  <div class="pain-grid">
+    <div class="pain-item reveal">
+      <span class="pain-icon">💸</span>
+      <div class="pain-title">Modal habis tanpa untung</div>
+      <p class="pain-desc">Beli HP asal-asalan, harga jual tidak dihitung dengan benar, akhirnya rugi atau sekadar balik modal.</p>
+    </div>
+    <div class="pain-item reveal">
+      <span class="pain-icon">📦</span>
+      <div class="pain-title">Stok menumpuk tidak laku</div>
+      <p class="pain-desc">Salah pilih unit, kondisi tidak dicek serius, foto jelek. HP nangkring di lemari berbulan-bulan.</p>
+    </div>
+    <div class="pain-item reveal">
+      <span class="pain-icon">😤</span>
+      <div class="pain-title">Pembeli menawar terus, komplain terus</div>
+      <p class="pain-desc">Tidak punya sistem komunikasi. Tidak tahu cara setting harga, presentasi, dan closing yang benar.</p>
+    </div>
+    <div class="pain-item reveal">
+      <span class="pain-icon">🔍</span>
+      <div class="pain-title">Bingung cari sumber HP murah</div>
+      <p class="pain-desc">Tidak tahu tempat kulak yang tepat. Sering kalah duluan sama reseller yang sudah berpengalaman.</p>
+    </div>
+    <div class="pain-item reveal">
+      <span class="pain-icon">📱</span>
+      <div class="pain-title">Jualan di marketplace tapi sepi</div>
+      <p class="pain-desc">Sudah upload di FB Marketplace dan OLX, tapi chat masuk sedikit. Tidak tahu cara optimasi iklan.</p>
+    </div>
+    <div class="pain-item reveal">
+      <span class="pain-icon">🔄</span>
+      <div class="pain-title">Tidak ada sistem, semua manual</div>
+      <p class="pain-desc">Bisnis jalan tapi capek sendiri. Tidak ada template, tidak ada alur, semua bergantung pada mood.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PREVIEW ISI -->
+<section class="contents-section">
+  <div class="section-label">Isi eBook</div>
+  <h2 class="section-title reveal">Yang Akan Kamu<br>Pelajari</h2>
+  <div class="contents-grid reveal">
+    <div class="content-item">
+      <div class="content-num">01</div>
+      <div class="content-info">
+        <h4>Mindset & Fondasi Bisnis HP Bekas</h4>
+        <p>Cara berpikir yang benar sebelum mulai. Kenapa bisnis ini masih sangat menguntungkan di 2025.</p>
+      </div>
+    </div>
+    <div class="content-item">
+      <div class="content-num">02</div>
+      <div class="content-info">
+        <h4>Sistem Sourcing — Cari Unit yang Benar</h4>
+        <p>Tempat kulak terpercaya, cara negosiasi harga beli, unit mana yang wajib diburu dan mana yang dihindari.</p>
+      </div>
+    </div>
+    <div class="content-item">
+      <div class="content-num">03</div>
+      <div class="content-info">
+        <h4>Pengecekan & Penilaian Kondisi HP</h4>
+        <p>Checklist lengkap mengecek unit sebelum beli. Cara menilai kondisi secara jujur agar tidak rugi.</p>
+      </div>
+    </div>
+    <div class="content-item">
+      <div class="content-num">04</div>
+      <div class="content-info">
+        <h4>Strategi Harga & Margin yang Tepat</h4>
+        <p>Formula harga jual, kapan markup rendah vs tinggi, cara baca harga pasar real-time.</p>
+      </div>
+    </div>
+    <div class="content-item">
+      <div class="content-num">05</div>
+      <div class="content-info">
+        <h4>Presentasi & Foto Produk yang Menjual</h4>
+        <p>Cara foto HP bekas pakai HP biasa tapi hasilnya profesional. Template deskripsi iklan yang terbukti convert.</p>
+      </div>
+    </div>
+    <div class="content-item">
+      <div class="content-num">06</div>
+      <div class="content-info">
+        <h4>Sistem Jualan di FB Marketplace & WhatsApp</h4>
+        <p>Template chat WA untuk tanya-harga, negosiasi, closing, dan follow-up. Cara optimalkan FB Marketplace.</p>
+      </div>
+    </div>
+    <div class="content-item">
+      <div class="content-num">07</div>
+      <div class="content-info">
+        <h4>Manajemen Modal & Scaling Bisnis</h4>
+        <p>Model alokasi modal 4 ember, strategi velocity-over-volume, cara naik dari 2 juta ke 10 juta per bulan.</p>
+      </div>
+    </div>
+    <div class="content-item">
+      <div class="content-num">BONUS</div>
+      <div class="content-info">
+        <h4>Template Lengkap Siap Pakai</h4>
+        <p>Template chat WA, form intake pembeli, nota pembelian, dan checklist harian bisnis HP bekas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONI -->
+<section class="testi-section">
+  <div class="section-label">Kata mereka</div>
+  <h2 class="section-title reveal">Hasil Nyata dari<br>Pembaca eBook</h2>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-quote">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Awalnya modal 2 juta sering habis tanpa hasil jelas. Setelah baca eBook ini dan ikuti sistemnya, dalam 3 bulan bisa scaling ke omzet 8 juta. Pola pikirnya beda banget.</p>
+      <div class="testi-name">Rizky A.</div>
+      <div class="testi-loc">Purwokerto, Jawa Tengah</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-quote">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Template WA-nya worth it banget. Dulu sering di-ghosting sama calon pembeli. Sekarang pake template dari eBook ini, closing rate langsung naik drastis.</p>
+      <div class="testi-name">Dani F.</div>
+      <div class="testi-loc">Cilacap, Jawa Tengah</div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-quote">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Bagian sourcing dan checklist kondisi HP itu yang paling berharga buat saya. Udah 2 bulan belum pernah salah beli unit lagi. Recommended banget untuk pemula!</p>
+      <div class="testi-name">Agus S.</div>
+      <div class="testi-loc">Banjarnegara, Jawa Tengah</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BELI -->
+<section class="cta-section" id="beli">
+  <div class="section-label">Ambil keputusan sekarang</div>
+  <h2 class="cta-title reveal">Mulai Bisnis<br><span>HP Bekas</span><br>Hari Ini.</h2>
+  <p class="cta-sub reveal">Investasi sekali, sistem untuk selamanya. Lebih murah dari satu kesalahan beli HP bekas yang salah.</p>
+
+  <div class="cta-box reveal">
+    <div class="price-old">Harga Normal Rp 197.000</div>
+    <div class="price-main">Rp 97.000</div>
+    <div class="price-note">Akses seumur hidup · PDF siap download · Update gratis</div>
+    <a href="https://payment.example.com" class="btn-primary" style="font-size:16px; padding:18px 48px;">
+      Beli eBook Sekarang →
+    </a>
+  </div>
+
+  <div class="guarantee reveal">
+    <span>🛡️</span>
+    Garansi uang kembali 7 hari jika kamu tidak puas
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2025 <strong>Tofik HP Bekas</strong> · @TofikHpBekas</div>
+  <div>Pertanyaan? Chat via <a href="https://wa.me/628xxxxxxxxxx" style="color:var(--gold); text-decoration:none;">WhatsApp</a></div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
